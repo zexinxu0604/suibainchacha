@@ -110,6 +110,65 @@ public class HttpUtil {
     }
 
     //获取服务器信息
+    public static int GetServerStatus(String server) {
+        String status;
+        try {
+            CloseableHttpClient client = null;
+            CloseableHttpResponse response = null;
+            try {
+                HttpGet httpGet = new HttpGet("https://jx3api.com/api/server.php?server=" + server);
+                client = HttpClients.createDefault();
+                response = client.execute(httpGet);
+                HttpEntity entity = response.getEntity();
+                String result = EntityUtils.toString(entity);
+                status = JSON.parseObject(result).get("code").toString();
+                if(status.equals("1")) {
+                    return Integer.parseInt(JSON.parseObject(result).get("status").toString());
+                } else {
+                    return 2;
+                }
+
+            } finally {
+                if (response != null) {
+                    response.close();
+                }
+                if (client != null) {
+                    client.close();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 2;
+    }
+
+    //日常查询
+    public static String GetDaily(String server) {
+        String status;
+        try {
+            CloseableHttpClient client = null;
+            CloseableHttpResponse response = null;
+            try {
+                HttpGet httpGet = new HttpGet("https://jx3api.com/api/daily.php?server=" + server);
+                client = HttpClients.createDefault();
+                response = client.execute(httpGet);
+                HttpEntity entity = response.getEntity();
+                String result = EntityUtils.toString(entity);
+
+                return result;
+            } finally {
+                if (response != null) {
+                    response.close();
+                }
+                if (client != null) {
+                    client.close();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 }

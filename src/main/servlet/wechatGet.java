@@ -36,15 +36,40 @@ public class wechatGet extends HttpServlet {
             switch (map.get("MsgType")) {
                 case "text" : {
                     TextMessage message = MessageUtil.mapToTextMessage(map);
+                    String content = message.getReceiveContent();
 
+                    switch (TextUtil.TextKind(content)) {
+                        case 0: {
+                            String result = HttpUtil.SendTuringTextMessage(message);
 
-                    String result = HttpUtil.SendTuringTextMessage(message);
+                            message.setContent(JsonUtil.GetTuringResult(result));
+                            //调用Message工具类，将对象转为XML字符串
+                            String str = MessageUtil.textMessageToXml(message);
+                            out.print(str);
+                            break;
+                        }
+                        //查询开服情况
+                        case 1: {
+                            String server = content.replaceFirst("开服","").trim();
+                            int result = HttpUtil.GetServerStatus(server);
+                            message.setContent(TextUtil.GetServerResult(result, server));
+                            String str = MessageUtil.textMessageToXml(message);
+                            out.print(str);
+                            break;
+                        }
+                        case 2: {
+                            String server = content.replaceFirst("日常","").trim();
+                            server = server.replaceFirst("查询","").replaceAll(" ", "");
+                            String result = HttpUtil.GetDaily(server);
+                            result = result.replaceAll("\"", "").replaceAll("\\{","").replaceAll("}", "").replaceAll(";",",");
 
-                    message.setContent(JsonUtil.GetTuringResult(result));
-                    //调用Message工具类，将对象转为XML字符串
-                    String str = MessageUtil.textMessageToXml(message);
-                    out.print(str);
-                    break;
+                            message.setContent(result);
+                            String str = MessageUtil.textMessageToXml(message);
+                            out.print(str);
+
+                            break;
+                        }
+                    }
                 }
 
                 case "image" : {
