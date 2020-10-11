@@ -143,7 +143,7 @@ public class HttpUtil {
     }
 
     //日常查询
-    public static String GetDaily(String server) {
+    public static Daily GetDaily(String server) {
         String status;
         try {
             CloseableHttpClient client = null;
@@ -154,8 +154,46 @@ public class HttpUtil {
                 response = client.execute(httpGet);
                 HttpEntity entity = response.getEntity();
                 String result = EntityUtils.toString(entity);
+                JSONObject jsonObject = JSON.parseObject(result);
 
-                return result;
+                Daily daily = new Daily();
+                daily = JsonUtil.getDaily(jsonObject);
+                return daily;
+
+            } finally {
+                if (response != null) {
+                    response.close();
+                }
+                if (client != null) {
+                    client.close();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    //金价查询
+    public static GoldPrice getGoldPrice(String server) {
+        GoldPrice goldPrice = new GoldPrice();
+        try {
+            CloseableHttpClient client = null;
+            CloseableHttpResponse response = null;
+            try {
+                HttpGet httpGet = new HttpGet("https://jx3api.com/api/gold.php?server=" + server);
+                client = HttpClients.createDefault();
+                response = client.execute(httpGet);
+                HttpEntity entity = response.getEntity();
+                String result = EntityUtils.toString(entity);
+                String status = JSON.parseObject(result).get("code").toString();
+                if(status.equals("0")) {
+                    return null;
+                } else {
+                    JSONObject jsonObject = JSON.parseObject(result);
+                    goldPrice = JsonUtil.getGoldPrice(jsonObject);
+                    return goldPrice;
+                }
             } finally {
                 if (response != null) {
                     response.close();

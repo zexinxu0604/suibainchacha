@@ -60,8 +60,28 @@ public class wechatGet extends HttpServlet {
                         case 2: {
                             String server = content.replaceFirst("日常","").trim();
                             server = server.replaceFirst("查询","").replaceAll(" ", "");
-                            String result = HttpUtil.GetDaily(server);
-                            result = result.replaceAll("\"", "").replaceAll("\\{","").replaceAll("}", "").replaceAll(";",",");
+                            Daily daily = HttpUtil.GetDaily(server);
+                            String result = "【时间】 " + daily.getTime() + " 星期" + daily.getWeekday() + "\n" + "【今日大战】 " + daily.getDailySecretPlace() + "\n";
+                            result += "【今日战场】 " + daily.getWarPlace() + "\n" + "【公共任务】 " + daily.getPublicTask() + "\n" + "【美人图】 " + daily.getBeauty() + "\n";
+                            result += "【武林通鉴·公共任务】 " + daily.getWulinPublicTask() + "\n" + "【武林通鉴·秘境任务】 " + daily.getWulinSercretPlace() + "\n" + "【武林通鉴·团队秘境】 " + daily.getWulinGroupSecretPlace();
+
+                            message.setContent(result);
+                            String str = MessageUtil.textMessageToXml(message);
+                            out.print(str);
+
+                            break;
+                        }
+                        case 3: {
+                            String server = content.replaceFirst("金价","").trim();
+                            GoldPrice goldPrice = HttpUtil.getGoldPrice(server);
+                            String result;
+                            if(goldPrice == null) {
+                                result = "输入的服务器有问题qwq，重新查一下吧";
+                            } else {
+                                result = "【金价仅供参考，实际情况以交易时为准】";
+                                result += "\n" + "服务器 "+ goldPrice.getServer() + "\n" + "【万宝楼】 " + Float.toString(goldPrice.getWanbaolou()) + "\n" + "【uu898平台】" + Float.toString(goldPrice.getUu898()) + "\n" + "【dd373平台】 " + Float.toString(goldPrice.getDd373()) + "\n";
+                                result += "【5173平台】 " + Float.toString(goldPrice.getS5173()) + "\n" + "【7881平台】 " + Float.toString(goldPrice.getS7881()) + "\n" + "【游募平台】 " + Float.toString(goldPrice.getYoumu());
+                            }
 
                             message.setContent(result);
                             String str = MessageUtil.textMessageToXml(message);

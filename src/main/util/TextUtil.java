@@ -7,8 +7,11 @@ public class TextUtil {
             return 1;
         } else if(text.startsWith("日常查询 ") || text.startsWith("日常 ")) {
             return 2;
+        } else if(text.startsWith("金价 ")) {
+            return 3;
+        } else {
+            return 0;
         }
-        return 0;
     }
 
 
