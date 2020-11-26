@@ -1,6 +1,11 @@
+package util;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import model.Daily;
+import model.GoldPrice;
+import model.TuringMessage;
 
 import javax.xml.soap.Text;
 import java.text.SimpleDateFormat;
@@ -79,7 +84,7 @@ public class JsonUtil {
         daily.setWeekday(jsonObject.get("星期").toString());
         daily.setDailySecretPlace(jsonObject.get("秘境大战").toString());
         daily.setWarPlace(jsonObject.get("今日战场").toString());
-        daily.setPublicTask(jsonObject.get("公共任务").toString());
+        daily.setPublicTask(jsonObject.get("驰援任务").toString());
         daily.setWulinPublicTask(jsonObject.get("武林通鉴·公共任务").toString());
         daily.setWulinSercretPlace(jsonObject.get("武林通鉴·秘境任务").toString());
         daily.setWulinGroupSecretPlace(jsonObject.get("武林通鉴·团队秘境").toString());

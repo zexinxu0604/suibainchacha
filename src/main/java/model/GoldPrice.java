@@ -1,3 +1,5 @@
+package model;
+
 public class GoldPrice {
 
     private String code;

@@ -1,4 +1,8 @@
+package util;
+
 import com.thoughtworks.xstream.XStream;
+import model.ImageMessage;
+import model.TextMessage;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;

@@ -1,5 +1,8 @@
+package util;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import model.*;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -18,6 +21,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class HttpUtil {
+    public static String token = "jx3zhenhaowan";
     private static String turingUrl = "http://openapi.tuling123.com/openapi/api/v2";
 
     public static String getTuringUrl() {
@@ -149,7 +153,7 @@ public class HttpUtil {
             CloseableHttpClient client = null;
             CloseableHttpResponse response = null;
             try {
-                HttpGet httpGet = new HttpGet("https://jx3api.com/api/daily.php?server=" + server);
+                HttpGet httpGet = new HttpGet("https://jx3api.com/api/daily.php?server=" + server + "&token=" + token);
                 client = HttpClients.createDefault();
                 response = client.execute(httpGet);
                 HttpEntity entity = response.getEntity();

@@ -1,3 +1,5 @@
+package model;
+
 public class ImageMessage {
 
     private String ToUserName;
@@ -28,7 +30,7 @@ public class ImageMessage {
             MediaId = mediaId;
         }
 
-        ImageBean(String MediaId) {
+        public ImageBean(String MediaId) {
             this.MediaId = MediaId;
         }
 

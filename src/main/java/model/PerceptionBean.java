@@ -1,3 +1,5 @@
+package model;
+
 public class PerceptionBean {
 
     private String text = "";

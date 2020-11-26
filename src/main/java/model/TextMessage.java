@@ -1,3 +1,5 @@
+package model;
+
 public class TextMessage {
     private String ToUserName;//开发者微信号
     private String FromUserName;//发送方账号
