@@ -1,4 +1,4 @@
-package model;
+package com.xin.model;
 
 public class TextMessage {
     private String ToUserName;//开发者微信号

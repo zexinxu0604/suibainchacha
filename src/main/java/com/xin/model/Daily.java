@@ -1,4 +1,4 @@
-package model;
+package com.xin.model;
 
 public class Daily {
 
@@ -23,6 +23,15 @@ public class Daily {
     private String wulinPublicTask;
     private String wulinSercretPlace;
     private String wulinGroupSecretPlace;
+    private String server;
+
+    public String getServer() {
+        return server;
+    }
+
+    public void setServer(String server) {
+        this.server = server;
+    }
 
     public String getTime() {
         return time;
@@ -96,5 +105,20 @@ public class Daily {
         this.wulinGroupSecretPlace = wulinGroupSecretPlace;
     }
 
+    @Override
+    public String toString() {
+        return "Daily{" +
+                "time='" + time + '\'' +
+                ", weekday='" + weekday + '\'' +
+                ", dailySecretPlace='" + dailySecretPlace + '\'' +
+                ", warPlace='" + warPlace + '\'' +
+                ", publicTask='" + publicTask + '\'' +
+                ", Beauty='" + Beauty + '\'' +
+                ", wulinPublicTask='" + wulinPublicTask + '\'' +
+                ", wulinSercretPlace='" + wulinSercretPlace + '\'' +
+                ", wulinGroupSecretPlace='" + wulinGroupSecretPlace + '\'' +
+                ", server='" + server + '\'' +
+                '}';
+    }
 }
 

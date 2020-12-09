@@ -1,8 +1,8 @@
-package util;
+package com.xin.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import model.*;
+import com.xin.model.*;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -162,6 +162,7 @@ public class HttpUtil {
 
                 Daily daily = new Daily();
                 daily = JsonUtil.getDaily(jsonObject);
+                daily.setServer(server);
                 return daily;
 
             } finally {

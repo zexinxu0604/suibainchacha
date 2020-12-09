@@ -1,11 +1,11 @@
-package servlet;
+package com.xin.servlet;
 
-import model.Daily;
-import model.GoldPrice;
-import model.ImageMessage;
-import model.TextMessage;
+import com.xin.model.Daily;
+import com.xin.model.GoldPrice;
+import com.xin.model.ImageMessage;
+import com.xin.model.TextMessage;
 import org.dom4j.DocumentException;
-import util.*;
+import com.xin.util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

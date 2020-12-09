@@ -1,4 +1,4 @@
-package model;
+package com.xin.model;
 
 public class TuringMessage {
 

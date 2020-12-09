@@ -1,4 +1,4 @@
-package util;
+package com.xin.util;
 
 import java.security.MessageDigest;
 import java.util.Arrays;
