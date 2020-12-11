@@ -1,5 +1,10 @@
 package com.xin.util;
 
+import com.xin.dao.DailyDao;
+import com.xin.model.Daily;
+import org.apache.ibatis.ognl.EnumerationIterator;
+import org.apache.ibatis.session.SqlSession;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -36,6 +41,18 @@ public class TextUtil {
                 content = "输入服务器有误，请重新输入！";
                 return content;
             }
+        }
+        return null;
+    }
+
+    public static Daily getDaily(String server) {
+        SqlSession sqlSession = MybatisUtil.getSqlSession();
+        DailyDao mapper = sqlSession.getMapper(DailyDao.class);
+
+        Daily daily = mapper.getDaily(server);
+        sqlSession.close();
+        if(daily != null) {
+            return daily;
         }
         return null;
     }

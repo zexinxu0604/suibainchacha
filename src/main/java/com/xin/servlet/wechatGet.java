@@ -66,15 +66,23 @@ public class wechatGet extends HttpServlet {
                         case 2: {
                             String server = content.replaceFirst("日常","").trim();
                             server = server.replaceFirst("查询","").replaceAll(" ", "");
-                            Daily daily = HttpUtil.GetDaily(server);
-                            String result = "【时间】 " + daily.getTime() + " 星期" + daily.getWeekday() + "\n" + "【今日大战】 " + daily.getDailySecretPlace() + "\n";
-                            result += "【今日战场】 " + daily.getWarPlace() + "\n" + "【驰援任务】 " + daily.getPublicTask() + "\n" + "【美人图】 " + daily.getBeauty() + "\n";
-                            result += "【武林通鉴·公共任务】 " + daily.getWulinPublicTask() + "\n" + "【武林通鉴·秘境任务】 " + daily.getWulinSercretPlace() + "\n" + "【武林通鉴·团队秘境】 " + daily.getWulinGroupSecretPlace();
+                            Daily daily = TextUtil.getDaily(server);
+                            String str;
 
-                            message.setContent(result);
-                            String str = MessageUtil.textMessageToXml(message);
+                            if(daily != null) {
+                                String result = "【时间】 " + daily.getTime() + " 星期" + daily.getWeekday() + "\n" + "【今日大战】 " + daily.getDailySecretPlace() + "\n";
+                                result += "【今日战场】 " + daily.getWarPlace() + "\n" + "【驰援任务】 " + daily.getPublicTask() + "\n" + "【美人图】 " + daily.getBeauty() + "\n";
+                                result += "【武林通鉴·公共任务】 " + daily.getWulinPublicTask() + "\n" + "【武林通鉴·秘境任务】 " + daily.getWulinSercretPlace() + "\n" + "【武林通鉴·团队秘境】 " + daily.getWulinGroupSecretPlace();
+
+                                message.setContent(result);
+                                str = MessageUtil.textMessageToXml(message);
+                            }
+                            else {
+                                String result = "没有查到相应信息";
+                                message.setContent(result);
+                                str = MessageUtil.textMessageToXml(message);
+                            }
                             out.print(str);
-
                             break;
                         }
                         case 3: {

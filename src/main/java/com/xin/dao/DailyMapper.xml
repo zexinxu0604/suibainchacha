@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xin.dao.DailyDao">
     <select id="getDaily" resultType="com.xin.model.Daily" parameterType="String">
-    select * from jianwangsan.daily where server = #{server}
+    select * from jianwangsan.daily where server = #{server} order by time desc limit ${1};
     </select>
 
     <insert id="insertDaily" parameterType="com.xin.model.Daily">

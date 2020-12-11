@@ -7,7 +7,7 @@
 
   <servlet>
     <servlet-name>wechatGet</servlet-name>
-    <servlet-class>wechatGet</servlet-class>
+    <servlet-class>com.xin.servlet.wechatGet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>wechatGet</servlet-name>
