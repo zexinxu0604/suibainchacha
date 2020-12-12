@@ -10,9 +10,7 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 
 public class getDailyJob implements Job {
 
@@ -22,17 +20,25 @@ public class getDailyJob implements Job {
         SqlSession sqlSession = MybatisUtil.getSqlSession();
         DailyDao mapper = sqlSession.getMapper(DailyDao.class);
         try {
-            File file = new File("src/main/resources/server.txt");
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-            String strLine = null;
-            int lineCount = 1;
-            while(null != (strLine = bufferedReader.readLine())){
-                System.out.println("第[" + lineCount + "]行数据:[" + strLine + "]");
-                Daily daily = (Daily) factory.getObject("daily");
-                daily = HttpUtil.GetDaily(strLine);
-                mapper.insertDaily(daily);
-                lineCount++;
+            InputStream in = this.getClass().getClassLoader().getResourceAsStream("server.txt");
+            if(in != null)
+            {
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+                String strLine = null;
+                int lineCount = 1;
+                while(null != (strLine = bufferedReader.readLine())){
+                    System.out.println("第[" + lineCount + "]行数据:[" + strLine + "]");
+                    Daily daily = (Daily) factory.getObject("daily");
+                    daily = HttpUtil.GetDaily(strLine);
+                    mapper.insertDaily(daily);
+                    lineCount++;
+                }
+                in.close();
+                bufferedReader.close();
+            } else {
+                System.out.println("出错了");
             }
+
         }catch(Exception e){
             e.printStackTrace();
         }

@@ -23,16 +23,19 @@ public class schedule implements ServletContextListener {
         }
 
         //创建Job
-        JobDetail jobDetail = JobBuilder.newJob(com.xin.job.getDailyJob.class).withIdentity("job1", "group1").build();
+        JobDetail getDailyJob = JobBuilder.newJob(com.xin.job.getDailyJob.class).withIdentity("job1", "group1").build();
+        JobDetail oneTimeJob = JobBuilder.newJob(com.xin.job.getDailyJob.class).withIdentity("job2", "testjob").build();
 
-        // 3、构建Trigger实例,每隔1s执行一次
+        // 3、构建Trigger实例,按照日历执行
         CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity("trigger1", "triggerGroup1")
                 .startNow()//立即生效
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 58 17 * * ?")).build();//一直执行
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 10 7 * * ?")).build();//一直执行
 
+        Trigger trigger1 =  TriggerBuilder.newTrigger().withIdentity("trigger2","testTrigger").startNow().build();
 
         try {
-            scheduler.scheduleJob(jobDetail, trigger);
+            scheduler.scheduleJob(getDailyJob, trigger);
+            scheduler.scheduleJob(oneTimeJob, trigger1);
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
