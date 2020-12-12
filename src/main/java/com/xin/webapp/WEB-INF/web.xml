@@ -5,6 +5,10 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
 
+  <listener>
+    <listener-class>com.xin.Schedule.schedule</listener-class>
+  </listener>
+
   <servlet>
     <servlet-name>wechatGet</servlet-name>
     <servlet-class>com.xin.servlet.wechatGet</servlet-class>
@@ -13,4 +17,5 @@
     <servlet-name>wechatGet</servlet-name>
     <url-pattern>/wechatGet</url-pattern>
   </servlet-mapping>
+
 </web-app>

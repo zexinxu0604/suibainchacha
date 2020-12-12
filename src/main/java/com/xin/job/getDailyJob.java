@@ -22,7 +22,7 @@ public class getDailyJob implements Job {
         SqlSession sqlSession = MybatisUtil.getSqlSession();
         DailyDao mapper = sqlSession.getMapper(DailyDao.class);
         try {
-            File file = new File("server.txt");
+            File file = new File("src/main/resources/server.txt");
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
             String strLine = null;
             int lineCount = 1;
